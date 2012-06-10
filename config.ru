@@ -1,2 +1,2 @@
 require './nimbo_app'
-run NimboApp 
+run Nimbo::App 
