@@ -1,22 +1,25 @@
 require 'sinatra'
+require 'rest_client'
 require 'json'
 
-class NimboApp < Sinatra::Base
- 
-  set :suites_dir, File.expand_path(File.join(File.dirname(__FILE__), '../suites'))
+module Nimbo
+  class App < Sinatra::Base
 
-  get '/' do
-    erb :home
-  end
+    set :suites_dir, File.expand_path(File.join(File.dirname(__FILE__), '../suites'))
 
-  post '/test' do
-    suite_id = `uuid`
-    suite_dir = File.join settings.suites_dir, suite_id
-    archive = params['suite_archive'][:tempfile].path
+    get '/' do
+      erb :home
+    end
 
-    system("mkdir #{suite_dir}")
-    system("tar -xf #{archive} -C #{suite_dir}")
-    
-    { status: 'ok' }.to_json
+    post '/test' do
+      suite_id = `uuid`
+      suite_dir = File.join settings.suites_dir, suite_id
+      archive = params['suite_archive'][:tempfile].path
+
+      system("mkdir #{suite_dir}")
+      system("tar -xf #{archive} -C #{suite_dir}")
+
+      result = RestClient.get "http://localhost:3000/suite_run/#{suite_id}"
+    end
   end
 end
