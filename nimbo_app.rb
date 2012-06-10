@@ -19,7 +19,7 @@ module Nimbo
       system("mkdir #{suite_dir}")
       system("tar -xf #{archive} -C #{suite_dir}")
 
-      result = RestClient.get "http://localhost:3000/suite_run/#{suite_id}"
+      result = RestClient.get "http://localhost:4000/suite_run/#{suite_id}"
     end
   end
 end
