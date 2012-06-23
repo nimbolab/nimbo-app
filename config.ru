@@ -1,2 +1,5 @@
 require './nimbo_app'
-run Nimbo::App 
+require './nimbo_driver'
+
+#\ -p 4000
+run Nimbo::App
