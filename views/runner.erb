@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nimbo suite</title>
+
+    <script src="/javascripts/jasmine.js"></script>
+    <% @client_scripts.each do |script| %>
+      <script src="/suites/<%= @suite_id %>/<%= script %>"></script>
+    <% end %>
+    <script src="/javascripts/jasmine.NimboReporter.js"></script>
+  </head>
+  <body>
+  </body>
+</html>
