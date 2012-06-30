@@ -15,7 +15,9 @@ nimbo.capture = {
         that._pollId = setInterval(function () {
             try {
                 if (that._status === 'idle') { that._getSuite(); }
-            } catch (e) {}
+            } catch (e) {
+                alert('thrown');
+            }
         }, 1000);
     },
     postMessage: function (data) {
@@ -24,13 +26,18 @@ nimbo.capture = {
     _getSuite: function () {
         var that = this;
         that._setStatus('polling');
+
         $.get('/suite_get', function (data) {
+            console.log('polling: ', data);
             that.suite_id = JSON.parse(data);
             if (that.suite_id) {
                 that._onSuite(that.suite_id);
             } else {
                 that._setStatus('idle');
             }
+        })
+        .error(function () {
+            console.log('ajax got error', arguments);
         });
     },
     _onSuite: function () {
@@ -46,7 +53,10 @@ nimbo.capture = {
         this.runnerContainer.innerHTML = "";
     },
     _onSuiteMessage: function (data) {
-        $.post('/suite_result/' + this.suite_id, { result: data });
+        console.log('suite result:', data);
+
+        $.post('/suite_result/' + this.suite_id, { result: data })
+            .error(function () { alert('post error'); });
         this._removeSuite();
         this._setStatus('idle');
     },
