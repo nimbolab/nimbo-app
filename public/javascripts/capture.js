@@ -4,6 +4,8 @@ nimbo.capture = {
     init: function () {
         var that = this;
 
+        $.ajaxSetup({ cache: false });
+
         that.statusContainer = document.getElementById('status');
         that.runnerContainer = document.getElementById('runner');
 
