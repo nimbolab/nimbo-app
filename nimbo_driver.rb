@@ -33,7 +33,7 @@ module Nimbo
     get '/suite_run/:id' do
       suite_id = params[:id]
       suites << suite_id
-      "added #{suite_id}"
+      {}.to_json
     end
 
     post '/suite_result/:id' do
