@@ -2,16 +2,18 @@
 <html>
   <head>
     <title>Nimbo suite</title>
+  </head>
+  <body>
     <script src="/javascripts/jasmine.js"></script>
     <% @client_scripts.each do |script| %>
       <script src="<%= "/suites/#{@suite_id}/#{script}" %>"></script>
     <% end %>
     <script src="/javascripts/jasmine.NimboReporter.js"></script>
-  </head>
-  <body>
       <script>
-          jasmine.getEnv().addReporter(new jasmine.NimboReporter());
-          jasmine.getEnv().execute();
+          window.onload = function () {
+              jasmine.getEnv().addReporter(new jasmine.NimboReporter());
+              jasmine.getEnv().execute();
+          }
       </script>
   </body>
 </html>
