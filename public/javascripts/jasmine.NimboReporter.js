@@ -42,5 +42,3 @@ jasmine.NimboReporter.prototype.log = function (str) {
     // console.log('Reporter log', str);
 };
 
-jasmine.getEnv().addReporter(new jasmine.NimboReporter());
-jasmine.getEnv().execute();
